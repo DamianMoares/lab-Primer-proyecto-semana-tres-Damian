@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../Proyecto/css-De-Index/style.css" />
+    <link rel="stylesheet" href="../Proyecto/styleResponsive.css" />
     <title>Circle</title>
   </head>
   <body>
@@ -15,11 +16,13 @@
           class="logo"
         />
         <!-- menu_de_navegacion -->
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+        <label for="menu-toggle" class="hamburger">☰</label>
         <nav class="menu">
           <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#services">Services</a></li>
           </ul>
         </nav>
 
@@ -39,8 +42,8 @@
             </p>
 
             <div class="buttons">
-              <button class="btn-primary">Get in touch</button>
-              <button class="btn-secondary">See our work</button>
+              <a href="#newsletter" class="btn-primary">Get in touch</a>
+              <a href="#projects" class="btn-secondary">See our work</a>
             </div>
           </div>
 
@@ -64,62 +67,45 @@
         </div>
 
         <div class="part-One-Section-three">
-          <img
-            src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/airbnb-logo.svg"
-            alt="airbnb-logo"
-          />
-          <img
-            src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/google-logo.svg"
-            alt="google-logo"
-          />
-          <img
-            src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/microsoft-logo.svg"
-            alt="microsoft-logo"
-          />
-          <img
-            src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/fedex-logo.svg"
-            alt="fedex-logo"
-          />
-          <img
-            src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/amazon-logo.svg"
-            alt="amazon-logo"
-          />
+          <a href="https://www.airbnb.com" target="_blank" rel="noopener noreferrer">
+            <img src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/airbnb-logo.svg" alt="airbnb-logo" />
+          </a>
+          <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+            <img src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/google-logo.svg" alt="google-logo" />
+          </a>
+          <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer">
+            <img src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/microsoft-logo.svg" alt="microsoft-logo" />
+          </a>
+          <a href="https://www.fedex.com" target="_blank" rel="noopener noreferrer">
+            <img src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/fedex-logo.svg" alt="fedex-logo" />
+          </a>
+          <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer">
+            <img src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/amazon-logo.svg" alt="amazon-logo" />
+          </a>
         </div>
       </section>
       <!-- segunda Seccion -->
-      <section class="section2">
+      <section class="section2" id="projects">
         <h2>Recent Projects</h2>
         <div class="sectiontwo_container">
-          <div class="part-two-target-One">
-            <img
-              class="oneImg"
-              src="../assets/project-assets-20260406T084947Z-1-001/project-assets/projects-section/1.jpg"
-              alt="projects-section"
-            />
+          <a href="./pages/projects.html?id=1" class="part-two-target-One">
+            <img class="oneImg" src="../assets/project-assets-20260406T084947Z-1-001/project-assets/projects-section/1.jpg" alt="projects-section" />
             <h3>Simplify</h3>
             <p>UI Desing & App Development</p>
-            <button>learn more</button>
-          </div>
-          <div class="part-two-target-two">
-            <img
-              class="twoImg"
-              src="../assets/project-assets-20260406T084947Z-1-001/project-assets/projects-section/2.jpg"
-              alt="projects-section2"
-            />
+            <span class="learn-more">learn more</span>
+          </a>
+          <a href="./pages/projects.html?id=2" class="part-two-target-two">
+            <img class="twoImg" src="../assets/project-assets-20260406T084947Z-1-001/project-assets/projects-section/2.jpg" alt="projects-section2" />
             <h3>Dashcoin</h3>
             <p>Web Development</p>
-            <button>learn more</button>
-          </div>
-          <div class="part-two-target-three">
-            <img
-              class="threeImg"
-              src="../assets/project-assets-20260406T084947Z-1-001/project-assets/projects-section/3.jpg"
-              alt="projects-section3"
-            />
+            <span class="learn-more">learn more</span>
+          </a>
+          <a href="./pages/projects.html?id=3" class="part-two-target-three">
+            <img class="threeImg" src="../assets/project-assets-20260406T084947Z-1-001/project-assets/projects-section/3.jpg" alt="projects-section3" />
             <h3>Vectorify</h3>
             <p>User Experience Desing</p>
-            <button>learn more</button>
-          </div>
+            <span class="learn-more">learn more</span>
+          </a>
         </div>
       </section>
       <!-- TerceraSección -->
@@ -163,7 +149,7 @@
         </div>
       </section>
       <!-- cuartaSeccion -->
-      <section class="section4">
+      <section class="section4" id="services">
         <h2>Our Services</h2>
         <div class="sectionfour_container">
           <div class="part-four-target-One">
@@ -177,7 +163,7 @@
               Circle provides you with a stunning user interface design that is
               accessible to everyone.
             </p>
-            <button>learn more</button>
+            <a href="#" class="learn-more">Learn more</a>
           </div>
           <div class="part-four-target-two">
             <img
@@ -190,7 +176,7 @@
               Circle always focuses on delivering the best user experience to
               your customers.
             </p>
-            <button>learn more</button>
+            <a href="#" class="learn-more">Learn more</a>
           </div>
           <div class="part-four-target-three">
             <img
@@ -203,20 +189,17 @@
               Circle always focuses on delivering the best user experience to
               your customers.
             </p>
-            <button>learn more</button>
+            <a href="#" class="learn-more">Learn more</a>
           </div>
         </div>
       </section>
       <!-- quitaSeccion -->
-      <section class="section5">
+      <section class="section5" id="newsletter">
         <h2>Do you have any questions?</h2>
         <p>Let us help you!</p>
         <div class="sectioFiveEmail">
-          <input
-          type="email"
-          placeholder="Enter your email address"
-          class="email-input">
-        <button class="btn-submit">Suscribete</button>
+          <input type="email" placeholder="Enter your email address" class="email-input">
+          <a href="./pages/contact.html" class="btn-submit">Suscribe</a>
         </div>
         
 
@@ -224,15 +207,23 @@
     </article>
     <!-- Pie de pagina -->
     <footer class="piePage">
-      <article>
+      <article class="footer-container">
         <section>
           <img
             src="../assets/project-assets-20260406T084947Z-1-001/project-assets/logos/circle.svg"
             alt="Logo de circle"
             class="logo-footer">
-        </section>
+          <p>2972 Westheimer Rd. Santa Ana, Illinois 85486</p>
+          </section>
         <section>
-
+          <ul class="footer-links">
+            <li><a href="#">Team</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
         </section>
       </article>
     </footer>
