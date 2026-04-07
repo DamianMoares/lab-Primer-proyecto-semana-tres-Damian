@@ -1,0 +1,25 @@
+:root{
+    /* colores base */
+    --blackblue:#072Ac8;
+    --turquoiseBlue:#A2D6F9;
+    --lightBlue:#43d2ff;
+    --lightTurquoiseBlue:#D1EDFF;
+    --blueGrey:#6B708D;
+    --navyBlue:#292E47;
+    --yellowDark:#ffc600;
+    --off-white:#F2F4FC;
+    --blueWhite:#Ecf7ff;
+
+    /* TopografíaTexto Base */
+    --h1h:Heading H1 60 Bold;
+    --h2h:Heading H2 50 Bold;
+    --h3h:Heading H3 40 Bold;
+    --h4h:Heading H4 24 Bold;
+    --p1m:Body Intro Text 24 Medium;
+    --p2r:Body Intro Text 20 Regular;
+    --p2h:Heading Text 17 Regular;
+    --p3h:Heading Text 17 Medium;
+    --p4c:Caption 1 text 15 Regular;
+    --p5h:Caption 2 text 15 Regular;
+    
+}
