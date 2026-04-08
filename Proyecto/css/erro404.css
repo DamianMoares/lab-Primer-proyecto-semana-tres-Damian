@@ -1,0 +1,9 @@
+#content {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    padding: 100px 20px;
+    /* background-image: url(https://dinahosting.com/blog/upload/2021/03/error-404.jpg); */
+    background-size: cover;
+    background-position: center;
+}

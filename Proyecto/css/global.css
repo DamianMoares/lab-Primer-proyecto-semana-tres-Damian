@@ -1,25 +1,297 @@
 :root{
-    /* colores base */
-    --blackblue:#072Ac8;
-    --turquoiseBlue:#A2D6F9;
-    --lightBlue:#43d2ff;
-    --lightTurquoiseBlue:#D1EDFF;
-    --blueGrey:#6B708D;
-    --navyBlue:#292E47;
-    --yellowDark:#ffc600;
-    --off-white:#F2F4FC;
-    --blueWhite:#Ecf7ff;
+    /* Colores */
+    --color-primary: #072Ac8;
+    --color-secondary: #A2D6F9;
+    --color-accent: #43d2ff;
+    --color-accent-light: #D1EDFF;
+    --color-text-secondary: #6B708D;
+    --color-text-primary: #292E47;
+    --color-warning: #ffc600;
+    --color-bg-light: #F2F4FC;
+    --color-bg-light-blue: #Ecf7ff;
 
-    /* TopografíaTexto Base */
-    --h1h:Heading H1 60 Bold;
-    --h2h:Heading H2 50 Bold;
-    --h3h:Heading H3 40 Bold;
-    --h4h:Heading H4 24 Bold;
-    --p1m:Body Intro Text 24 Medium;
-    --p2r:Body Intro Text 20 Regular;
-    --p2h:Heading Text 17 Regular;
-    --p3h:Heading Text 17 Medium;
-    --p4c:Caption 1 text 15 Regular;
-    --p5h:Caption 2 text 15 Regular;
+    /* Tipografía */
+    --font-h1: Heading H1 60 Bold;
+    --font-h2: Heading H2 50 Bold;
+    --font-h3: Heading H3 40 Bold;
+    --font-h4: Heading H4 24 Bold;
+    --font-body-lg: Body Intro Text 24 Medium;
+    --font-body: Body Intro Text 20 Regular;
+    --font-text-sm: Heading Text 17 Regular;
+    --font-text-sm-medium: Heading Text 17 Medium;
+    --font-caption: Caption 1 text 15 Regular;
+    --font-caption-medium: Caption 2 text 15 Regular;
     
+
+    
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Cabecera */
+
+.header {
+  padding: 24px 0;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  width: min(1200px, 90%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 1;
+  justify-content: center;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  color: var(--color-text-primary);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.menu a:hover {
+  color: var(--color-primary);
+}
+
+.btn-contact {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.btn-contact:hover {
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+#newsletter {
+  width: 90%;
+  height: auto;
+  background: var(--color-warning);
+  text-align: center;
+  margin: 5%;
+  padding: 60px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.footer {
+  margin: 10%;
+}
+.logo {
+  width: 110px;
+  height: auto;
+}
+.logo-footer {
+  width: 100px;
+  height: auto;
+}
+.logo-link {
+  display: inline-block;
+}
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 48px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.menu a:hover {
+  color: var(--color-primary);
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.menu-toggle:checked + .hamburger + .menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: var(--color-bg-light);
+  width: 100%;
+  gap: 0;
+}
+
+.menu-toggle:checked + .hamburger + .menu ul {
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.menu-toggle:checked + .hamburger + .menu ul li {
+  width: 100%;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-toggle:checked + .hamburger + .menu ul li a {
+  display: block;
+  padding: 16px 20px;
+}
+
+.btn-contact {
+  background: var(--color-primary);
+  color: var(--color-bg-light);
+  border: none;
+  padding: 18px 40px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#newsletter h2 {
+  font-size: 36px;
+  color: var(--color-text-primary);
+  padding: 0 0 16px;
+  margin: 0;
+  font-weight: 800;
+}
+#newsletter p {
+  color: var(--color-text-secondary);
+  font-size: 18px;
+  padding: 0 0 32px;
+  margin: 0;
+}
+.sectionFiveEmail {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.email-input {
+  height: 44px;
+  background: var(--color-bg-light);
+  color: var(--color-text-secondary);
+  padding: 12px 16px;
+  width: 300px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.btn-submit {
+  height: 44px;
+  background: var(--color-text-primary);
+  color: var(--color-bg-light);
+  border: none;
+  padding: 0 32px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 0;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: var(--color-bg-light) 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: var(--color-primary);
+}
+
+
+
+
+/* Pie de página */
+
+.piePage {
+  padding: 48px 0;
+  background-color: var(--color-bg-light);
+  border-top: 1px solid var(--color-accent-light);
+}
+
+.footer-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.footer-container section {
+  flex: 1;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li a {
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-links li a:hover {
+  color: var(--color-primary);
 }
