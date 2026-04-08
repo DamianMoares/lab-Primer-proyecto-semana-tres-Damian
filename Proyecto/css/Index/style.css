@@ -2,10 +2,10 @@
 @import url("../global.css");
 @import url("./styleResponsive.css");
 * {
-  margin: 0 auto;
+  margin: 2%;
   padding: 0;
-  background: var(--off-white);
   font-family: "Roboto", sans-serif;
+  align-content: center;
   max-width: 1200px;
 }
 html {
@@ -350,7 +350,7 @@ body {
 }
 .corner {
   position: absolute;
-  width: 10%;
+  width: 5%;
   height: auto;
   z-index: 2;
   pointer-events: none;
@@ -358,20 +358,20 @@ body {
 }
 
 .tl {
-  top: 10%;
-  left: 10%;
+  top: 3%;
+  left: 3%;
 }
 .tr {
-  top: 10%;
-  right: 10%;
+  top: 3%;
+  right: 3%;
 }
 .bl {
-  bottom: 10%;
-  left: 10%;
+  bottom: 3%;
+  left: 3%;
 }
 .br {
-  bottom: 10%;
-  right: 10%;
+  bottom: 3%;
+  right: 3%;
 }
 
 .content {
