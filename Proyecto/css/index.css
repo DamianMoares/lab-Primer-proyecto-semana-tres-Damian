@@ -1,4 +1,5 @@
 
+
 html {
   scroll-behavior: smooth;
   display: block;
@@ -100,16 +101,18 @@ body {
 }
 
 .card-top {
-  width: 50%;
-  top: 1%;
-  left: 2%;
+  background: none;
+  width: 280px;
+  top:0;
+  left: -50px;
 }
 
 .card-bottom {
-  width: 50%;
+  background: none;
+  width: 280px;
   top: 60%;
-  bottom: 2%;
-  right: 1%;
+  bottom: 0;
+  right: -70px;
 }
 
 .part-One-Section-three {
@@ -191,7 +194,8 @@ body {
 
 .learn-more {
   background-color: transparent;
-  color: var(--color-primary);
+  margin-left: 30px;
+  color: var(--color-text-primary);
   border: none;
   padding: 0;
   font-weight: 600;
@@ -232,6 +236,7 @@ body {
   background-image: url(../assets/project-assets-20260406T084947Z-1-001/project-assets/testimonial-section/orbit.png);
   background-size: cover;
   background-repeat: no-repeat;
+  text-align: -webkit-center;
   position: relative;
   padding: 80px 0;
   margin: 5%;
@@ -256,7 +261,7 @@ body {
 }
 .corner {
   position: absolute;
-  width: 15%;
+  width: 100px;
   height: auto;
   z-index: 2;
   pointer-events: none;
@@ -264,20 +269,20 @@ body {
 }
 
 .tl {
-  top: 3%;
-  left: 3%;
+  top: 30px;
+  left: 30px;
 }
 .tr {
-  top: 3%;
-  right: 3%;
+  top: 30px;
+  right: 30px;
 }
 .bl {
-  bottom: 3%;
-  left: 3%;
+  bottom: 30px;
+  left: 30px;
 }
 .br {
-  bottom: 3%;
-  right: 3%;
+  bottom: 30px;
+  right: 30px;
 }
 
 .content {
@@ -293,22 +298,34 @@ body {
   align-items: center;
 }
 .testimonial {
+  background: none;;
   color: var(--color-warning);
   font-size: 18px;
   line-height: 1.6;
   text-align: center;
   max-width: 500px;
 }
+.container-name-client {
+  background: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 .client-name {
+  background: none;
   color: var(--color-secondary);
   font-size: 16px;
   font-weight: 600;
 }
-.secction-profile {
+.section-profile {
+  background: none;
   display: flex;
   gap: 16px;
   margin-top: 20px;
   align-items: center;
+}
+.client-title {
+  background: none;
 }
 .profile {
   border-radius: 50%;

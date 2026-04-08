@@ -1,4 +1,3 @@
-
 /* ============================================
    RESPONSIVE DESIGN - MEDIA QUERIES
    ============================================ */
@@ -185,6 +184,13 @@
   .corner {
     width: 12%;
   }
+  .tl,
+  .tr,
+  .bl,
+  .br {
+    display: none !important;
+  }
+
 
   .content {
     max-width: 100%;
