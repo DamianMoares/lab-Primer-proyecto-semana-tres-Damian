@@ -1,44 +1,62 @@
-:root{
-    /* Colores */
-    --color-primary: #072Ac8;
-    --color-secondary: #A2D6F9;
-    --color-accent: #43d2ff;
-    --color-accent-light: #D1EDFF;
-    --color-text-secondary: #6B708D;
-    --color-text-primary: #292E47;
-    --color-warning: #ffc600;
-    --color-bg-light: #F2F4FC;
-    --color-bg-light-blue: #Ecf7ff;
+:root {
+  /* Colores */
+  --color-primary: #072ac8;
+  --color-secondary: #a2d6f9;
+  --color-accent: #43d2ff;
+  --color-accent-light: #d1edff;
+  --color-text-secondary: #6b708d;
+  --color-text-primary: #292e47;
+  --color-warning: #ffc600;
+  --color-bg-light: #f2f4fc;
+  --color-bg-light-blue: #ecf7ff;
 
-    /* Tipografía */
-    --font-h1: Heading H1 60 Bold;
-    --font-h2: Heading H2 50 Bold;
-    --font-h3: Heading H3 40 Bold;
-    --font-h4: Heading H4 24 Bold;
-    --font-body-lg: Body Intro Text 24 Medium;
-    --font-body: Body Intro Text 20 Regular;
-    --font-text-sm: Heading Text 17 Regular;
-    --font-text-sm-medium: Heading Text 17 Medium;
-    --font-caption: Caption 1 text 15 Regular;
-    --font-caption-medium: Caption 2 text 15 Regular;
-    
-
-    
+  /* Tipografía */
+  --font-h1: Heading H1 60 Bold;
+  --font-h2: Heading H2 50 Bold;
+  --font-h3: Heading H3 40 Bold;
+  --font-h4: Heading H4 24 Bold;
+  --font-body-lg: Body Intro Text 24 Medium;
+  --font-body: Body Intro Text 20 Regular;
+  --font-text-sm: Heading Text 17 Regular;
+  --font-text-sm-medium: Heading Text 17 Medium;
+  --font-caption: Caption 1 text 15 Regular;
+  --font-caption-medium: Caption 2 text 15 Regular;
 }
 
 * {
+  max-width: 1200px;
+  background-color: var(--color-bg-light);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
-
+h1,
+h2,
+h3,
+h4 {
+  line-height: 0.98;
+  margin: 0 0 28px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--color-text-primary);
+}
+h1 {
+  font-family: var(--font-h1);
+}
+h2 {
+  font-family: var(--font-h2);
+}
+h3 {
+  font-family: var(--font-h3);
+}
+h4 {
+  font-family: var(--font-h4);
+}
 /* Cabecera */
 
 .header {
   padding: 24px 0;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -52,7 +70,6 @@
   justify-content: space-between;
   padding: 0 16px;
 }
-
 
 .menu {
   display: flex;
@@ -99,15 +116,7 @@
   background-color: var(--color-accent);
   color: var(--color-text-primary);
 }
-#newsletter {
-  width: 90%;
-  height: auto;
-  background: var(--color-warning);
-  text-align: center;
-  margin: 5%;
-  padding: 60px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
+
 .footer {
   margin: 10%;
 }
@@ -190,8 +199,18 @@
   font-weight: 700;
   cursor: pointer;
 }
+#newsletter {
+  width: 90%;
+  height: auto;
+  background: var(--color-warning);
+  text-align: center;
+  margin: 5%;
+  padding: 60px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 
 #newsletter h2 {
+  background: none;
   font-size: 36px;
   color: var(--color-text-primary);
   padding: 0 0 16px;
@@ -199,12 +218,14 @@
   font-weight: 800;
 }
 #newsletter p {
+  background: none;
   color: var(--color-text-secondary);
   font-size: 18px;
   padding: 0 0 32px;
   margin: 0;
 }
-.sectionFiveEmail {
+.sectioFiveEmail {
+  background: none;
   display: flex;
   gap: 12px;
   justify-content: center;
@@ -242,9 +263,6 @@
   background: var(--color-primary);
 }
 
-
-
-
 /* Pie de página */
 
 .piePage {
@@ -272,8 +290,6 @@
   flex-direction: column;
   gap: 20px;
 }
-
-
 
 .footer-links {
   list-style: none;
