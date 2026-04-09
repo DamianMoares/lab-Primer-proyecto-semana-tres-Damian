@@ -58,7 +58,7 @@ class ContactForm {
         message = 'Email inválido';
         break;
       case 'phone':
-        isValid = value.length >= 9;
+        isValid = value.length >= 7;
         message = 'Teléfono inválido';
         break;
       case 'message':
