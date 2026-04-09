@@ -5,7 +5,8 @@
  * Mejora performance con caching y soporte offline
  */
 
-const CACHE_NAME = 'circle-v1';
+// Usar timestamp para invalidar cache automáticamente cada vez que SW se actualiza
+const CACHE_VERSION = 'circle-v1-' + new Date().getTime();
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -27,25 +28,30 @@ const ASSETS_TO_CACHE = [
 
 // Instalar SW y cachear assets
 self.addEventListener('install', (event) => {
+  // Forzar que el nuevo SW se active inmediatamente
+  self.skipWaiting();
+  
   event.waitUntil(
-    caches.open(CACHE_NAME)
+    caches.open(CACHE_VERSION)
       .then((cache) => {
-        console.log('✓ Cache creado:', CACHE_NAME);
-        // Solo cachear archivos críticos
+        console.log('✓ Cache creado:', CACHE_VERSION);
+        // Cachear archivos críticos
         return cache.addAll(ASSETS_TO_CACHE.slice(0, 10));
       })
       .catch((err) => console.error('Error en cache:', err))
   );
 });
 
-// Activar SW
+// Activar SW y limpiar caches antiguos
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
+        console.log('Caches encontrados:', cacheNames);
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== CACHE_NAME) {
+            // Eliminar todos los caches anteriores
+            if (!cacheName.includes(CACHE_VERSION)) {
               console.log('Limpiando cache antiguo:', cacheName);
               return caches.delete(cacheName);
             }
@@ -53,9 +59,12 @@ self.addEventListener('activate', (event) => {
         );
       })
   );
+  
+  // Reclamar clientes para que usen el nuevo SW inmediatamente
+  self.clients.claim();
 });
 
-// Estrategia: Network first, fallback a cache
+// Estrategia: Network first con fallback a cache
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -65,18 +74,24 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Estrategia: Network first para JS/CSS
+  // Estrategia: Network first para JS/CSS (SIEMPRE intentar actualizar)
   if (request.url.includes('/JavaScript/') || request.url.includes('/css/')) {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, clone);
-          });
+          // Si la red funciona, cachear la nueva versión
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE_VERSION).then((cache) => {
+              cache.put(request, clone);
+            });
+          }
           return response;
         })
-        .catch(() => caches.match(request))
+        .catch(() => {
+          // Solo usar cache si falla la red
+          return caches.match(request);
+        })
     );
     return;
   }
@@ -88,15 +103,16 @@ self.addEventListener('fetch', (event) => {
         .then((response) => {
           return response || fetch(request)
             .then((response) => {
-              const clone = response.clone();
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(request, clone);
-              });
+              if (response && response.status === 200) {
+                const clone = response.clone();
+                caches.open(CACHE_VERSION).then((cache) => {
+                  cache.put(request, clone);
+                });
+              }
               return response;
             });
         })
         .catch(() => {
-          // Fallback offline
           return new Response('Recurso no disponible offline', {
             status: 404,
             statusText: 'Not Found',
@@ -107,19 +123,25 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Estrategia: Cache first para HTML
+  // Estrategia: Network first para HTML
   event.respondWith(
-    caches.match(request)
+    fetch(request)
       .then((response) => {
-        return response || fetch(request)
+        // Si la red funciona, cachear la nueva versión
+        if (response && response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE_VERSION).then((cache) => {
+            cache.put(request, clone);
+          });
+        }
+        return response;
+      })
+      .catch(() => {
+        // Si falla la red, usar cache
+        return caches.match(request)
           .then((response) => {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, clone);
-            });
-            return response;
+            return response || caches.match('/index.html');
           });
       })
-      .catch(() => caches.match('/index.html'))
   );
 });

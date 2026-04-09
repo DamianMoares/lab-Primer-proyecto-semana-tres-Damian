@@ -31,9 +31,9 @@
     </header>
     
     <div id="content">
-        <h1>404 - Page Not Found</h1>
-        <p>Sorry, the page you are looking for does not exist.</p>
-        <a href="../index.html" class="btn">Go Back Home</a>
+        <h1>404</h1>
+        <p>¡Oops! La página que buscas se ha perdido en el espacio digital 🚀</p>
+        <a href="../index.html" class="btn">Volver al Inicio</a>
     </div>
 
     <!-- Pie de pagina -->
@@ -70,6 +70,22 @@
               if (location.hostname === 'localhost') {
                 console.log('✓ Service Worker registrado:', reg.scope);
               }
+              
+              // Detectar actualizaciones cada 5 segundos
+              setInterval(() => {
+                reg.update();
+              }, 5000);
+              
+              // Cuando hay una actualización disponible, recargar página
+              reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('✓ Nueva versión disponible - recargando...');
+                    window.location.reload();
+                  }
+                });
+              });
             })
             .catch(err => {
               if (location.hostname === 'localhost') {

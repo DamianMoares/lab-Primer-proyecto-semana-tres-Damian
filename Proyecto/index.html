@@ -59,6 +59,7 @@
               src="./assets/hero-section/hero-video.mp4"
               alt="Hero video"
               preload="auto"
+              muted
             ></video>
             <img
               class="hero-card card-top"
@@ -179,7 +180,7 @@
               Circle provides you with a stunning user interface design that is
               accessible to everyone.
             </p>
-            <a href="./page/formulario.html" class="learn-more">Learn more</a>
+            <a href="#" class="learn-more">Learn more</a>
           </div>
           <div class="part-four-target-two">
             <img
@@ -193,7 +194,7 @@
               Circle always focuses on delivering the best user experience to
               your customers.
             </p>
-            <a href="./page/formulario.html" class="learn-more">Learn more</a>
+            <a href="#" class="learn-more">Learn more</a>
           </div>
           <div class="part-four-target-three">
             <img
@@ -207,7 +208,7 @@
               Circle always focuses on delivering the best user experience to
               your customers.
             </p>
-            <a href="./page/formulario.html" class="learn-more">Learn more</a>
+            <a href="#html" class="learn-more">Learn more</a>
           </div>
         </div>
       </section>
@@ -239,7 +240,7 @@
             <li><a href="#">About Us</a></li>
             <li><a href="#">Press</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="./page/error404.html">Privacy Policy</a></li>
           </ul>
         </section>
       </article>
@@ -257,6 +258,23 @@
               if (location.hostname === 'localhost') {
                 console.log('✓ Service Worker registrado:', reg.scope);
               }
+              
+              // Detectar actualizaciones cada 5 segundos
+              setInterval(() => {
+                reg.update();
+              }, 5000);
+              
+              // Cuando hay una actualización disponible, recargar página
+              reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // Nueva versión disponible, recargar
+                    console.log('✓ Nueva versión disponible - recargando...');
+                    window.location.reload();
+                  }
+                });
+              });
             })
             .catch(err => {
               if (location.hostname === 'localhost') {

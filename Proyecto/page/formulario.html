@@ -70,7 +70,7 @@
             <li><a href="#">About Us</a></li>
             <li><a href="#">Press</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="./error404.html">Privacy Policy</a></li>
           </ul>
         </section>
       </article>
@@ -87,6 +87,22 @@
               if (location.hostname === 'localhost') {
                 console.log('✓ Service Worker registrado:', reg.scope);
               }
+              
+              // Detectar actualizaciones cada 5 segundos
+              setInterval(() => {
+                reg.update();
+              }, 5000);
+              
+              // Cuando hay una actualización disponible, recargar página
+              reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('✓ Nueva versión disponible - recargando...');
+                    window.location.reload();
+                  }
+                });
+              });
             })
             .catch(err => {
               if (location.hostname === 'localhost') {

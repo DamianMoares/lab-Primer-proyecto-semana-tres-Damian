@@ -12,142 +12,80 @@
 
 ---
 
-## global.js - Componentes Globales
+## global.js - Componentes Globales (OPTIMIZADO)
 
 ### 🎯 Propósito
-Script compartido entre TODAS las páginas. Define componentes reutilizables.
+Script minimalista compartido entre TODAS las páginas. Solo funcionalidades críticas sin overhead.
 
-### 📦 Componentes
+### ⚡ Optimizaciones (v2.0)
+```
+Reducción: 95 líneas → 26 líneas (-73%)
+Clases innecesarias eliminadas
+Eventos consolidados
+CSS nativo para smooth scroll
+```
 
-#### 1. **Utils Object - Funciones Auxiliares**
+### 📦 Contenido
+
+#### 1. **Menú Móvil - Código Directo (No Clase)**
 
 ```javascript
-const Utils = {
-  // Validation
-  validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  },
+// Inyección directa sin overhead de clase
+const mobileMenuToggle = document.getElementById('menu-toggle');
+if (mobileMenuToggle) {
+  const menu = document.querySelector('.menu');
   
-  validateURL(url) {
-    try {
-      new URL(url);
-      return true;
-    } catch (e) {
-      return false;
+  // Cerrar al clickear fuera
+  document.addEventListener('click', e => {
+    const isMenu = menu?.contains(e.target);
+    const isToggle = mobileMenuToggle?.contains(e.target);
+    if (!isMenu && !isToggle && mobileMenuToggle.checked) {
+      mobileMenuToggle.checked = false;
     }
-  },
+  });
   
-  // Storage
-  getFromStorage(key) {
-    return JSON.parse(localStorage.getItem(key));
-  },
-  
-  saveToStorage(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  },
-  
-  // Scroll
-  scrollToElement(selector) {
-    const element = document.querySelector(selector);
-    element?.scrollIntoView({ behavior: 'smooth' });
-  }
+  // Cerrar al clickear un link
+  document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', () => mobileMenuToggle.checked = false);
+  });
+}
+```
+
+**Beneficios:**
+- ✅ Sin overhead de clase constructor
+- ✅ Event delegation console
+- ✅ Early exit si no existe menú
+
+#### 2. **Utils Object - Funciones Auxiliares (Arrow Functions)**
+
+```javascript
+window.Utils = {
+  validateEmail: email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+  getQueryParam: name => new URLSearchParams(window.location.search).get(name)
 };
 ```
 
-#### 2. **SmoothScroll - Navegación Suave**
+**Cambios:**
+- ✅ Arrow functions (más moderno, conciso)
+- ✅ Solo métodos esenciales
+- ✅ Eliminados: URL validation, Storage (no usados)
+
+### 🗑️ Eliminado en v2.0
 
 ```javascript
-class SmoothScroll {
-  constructor() {
-    this.init();
-  }
-  
-  init() {
-    // Event delegation: solo 1 listener en document
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href^="#"]');
-      if (!link) return;
-      
-      e.preventDefault();
-      const target = link.getAttribute('href');
-      Utils.scrollToElement(target);
-    });
-  }
-}
+❌ class MobileMenu              → Reemplazado por código directo
+❌ class SmoothScroll           → CSS nativo + native browser
+❌ class ScrollAnimation        → Movido a index.js (específico)
+❌ class ContactButtonHandler   → En HTML con onclick
+❌ Estilos JS inyectados        → CSS archivo separado
+❌ DOMContentLoaded listeners   → Auto-exec al cargar
+❌ Animaciones CSS en JS        → En estilos.css
 ```
 
-**Ventajas:**
-- ✅ Solo 1 event listener (no ~50)
-- ✅ Scroll suave y natural
-- ✅ Funciona para anchors nuevos (dinámicos)
-
-#### 3. **ScrollAnimation - Lazy Load con IntersectionObserver**
-
-```javascript
-class ScrollAnimation {
-  constructor() {
-    this.options = {
-      threshold: 0,
-      rootMargin: '50px' // Precarga 50px antes de ser visible
-    };
-    this.init();
-  }
-  
-  init() {
-    const elements = document.querySelectorAll('.scroll-animate');
-    
-    if (elements.length === 0) return; // Early exit
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, this.options);
-    
-    elements.forEach(el => observer.observe(el));
-  }
-}
-```
-
-**Características:**
-- ✅ IntersectionObserver (mejor que scroll events)
-- ✅ rootMargin para pre-cargar (UX mejor)
-- ✅ Se desasocia después de cambio (cleanup)
-
-#### 4. **ContactButtonHandler - Botón Flotante de Contacto**
-
-```javascript
-class ContactButtonHandler {
-  constructor() {
-    this.button = document.querySelector('.btn-contact');
-    if (this.button) this.init();
-  }
-  
-  init() {
-    this.button.addEventListener('click', (e) => {
-      e.preventDefault();
-      // Redirige a formulario.html
-      window.location.href = './page/formulario.html';
-    });
-  }
-}
-```
-
-#### 5. **MobileMenuToggle - Menú Hamburguesa**
-
-```javascript
-class MobileMenuToggle {
-  constructor() {
-    this.toggle = document.getElementById('menu-toggle');
-    this.menu = document.querySelector('.menu');
-    
-    if (this.toggle && this.menu) this.init();
-  }
-  
-  init() {
+**Migración:**
+- **Smooth scroll** → `html { scroll-behavior: smooth; }` en CSS
+- **Notificaciones** → En formulario.js (específico)
+- **Scroll animations** → En index.js (solo homepage)
     this.toggle.addEventListener('change', () => {
       if (this.toggle.checked) {
         this.menu.style.display = 'flex';
@@ -887,6 +825,65 @@ class MyComponent {
 
 ---
 
+## � Cambios Recientes y Mejoras (Últimas 13 Sesiones)
+
+### ✅ Fase 1-3: Sincronización de Cards
+- **Bug**: Cards de index.html y projectPage.html en diferente orden
+- **Solución**: Implementar `order` CSS en flexbox
+- **Estado**: RESUELTO
+
+### ✅ Fase 4: Auto-Update Service Worker
+- **Bug**: Cambios en código necesitaban Ctrl+F5 para verse
+- **Solución**: 
+  - CACHE_VERSION dinámica (timestamp-based)
+  - `skipWaiting()` + `clients.claim()`
+  - Network-First strategy para JS/CSS
+  - Polling de 5 segundos en HTML
+- **Estado**: RESUELTO | No requiere hard refresh
+
+### ✅ Fase 5-7: Búsqueda por Nombre en ProjectPage
+- **Bug**: "Vectorify" card iba a "Dashcoin", lorem ipsum 404
+- **Raíz**: API devuelve proyectos en orden inverso
+- **Solución**: Mapeo ID → Nombre, búsqueda por nombre (no índice)
+- **Mapeo**:
+  ```
+  1 → Simplify
+  2 → Dashcoin
+  3 → Vectorify
+  4 → Lorem ipsum (edge case)
+  ```
+- **Estado**: RESUELTO | All links work correctly
+
+### ✅ Fase 8: Hero Video Hover
+- **Requisito**: Video reproduce al pasar mouse
+- **Implementación**:
+  - State management: `isVideoPlaying`, `isOnCooldown`
+  - Promise handling para `.play()`
+  - Transiciones suaves (0.5s opacity)
+  - Cooldown 30s después (UX natural)
+- **Atributo Added**: `muted` en video (permite autoplay)
+- **Estado**: FUNCTIONAL | Smooth UX
+
+### ✅ Fase 9-12: Error404 Redesign
+- **Antes**: Simple con múltiples opciones
+- **Ahora**: Fun, divertida, animated
+- **Características**:
+  - Animated gradient background
+  - Floating particles
+  - Bouncing "404" title
+  - Countdown 20s con auto-redirect
+  - Click sonido (Web Audio API)
+- **Removidas**: Search box, alternative links, feedback form
+- **Estado**: PRODUCTION-READY | Engaging UX
+
+### ✅ Fase 13: Code Comments & Documentation
+- **Cambio**: Comentarios estratégicos en puntos clave
+- **Archivos**: projectPage.js, heroVideoHover.js, error404.js
+- **Enfoque**: Explicar lógica, decisiones, bug fixes históricos
+- **Estado**: IN PROGRESS
+
+---
+
 ## 📊 Resumen de Optimizaciones
 
 | Técnica | Archivo | Beneficio |
@@ -896,8 +893,45 @@ class MyComponent {
 | requestIdleCallback | index.js | -60% main thread |
 | API Caching | projectPage.js | -80% API calls |
 | IntersectionObserver | global.js | Lazy load eficiente |
-| Closures | projectPage.js | Cache privado |
+| Name-based Lookup | projectPage.js | Correcta vinculación |
+| Promise Handling | heroVideoHover.js | Play seguros |
+| Service Worker | sw.js | Auto-update sin F5 |
 
 ---
 
-*Última actualización: 9 de abril de 2026*
+## 🚀 Nuevas Features (Últimas Sesiones)
+
+### 1. **Búsqueda Inteligente de Proyectos**
+```javascript
+// Antes: Búsqueda por índice (ERROR)
+const project = projects[projectId];
+
+// Ahora: Búsqueda por nombre (CORRECTO)
+const projectNames = { 1: 'Simplify', 2: 'Dashcoin', ... };
+const targetName = projectNames[projectId];
+const project = projects.find(p => p.name === targetName);
+```
+
+### 2. **Video Hover con Gestión de Estado**
+```javascript
+// Propiedades globales
+this.isVideoPlaying = false;   // ¿Está reproduciendo?
+this.isOnCooldown = false;    // ¿Está en espera?
+
+// Promise handling correcto
+const playPromise = this.video.play();
+playPromise
+  .then(() => console.log('Playing'))
+  .catch(err => console.error('Autoplay blocked'));
+```
+
+### 3. **Countdown Auto-Redirect**
+```javascript
+// Contador decreciente 20s → 0s
+// Redirección automática a home
+new CountdownRedirect(20);  // 20 segundos
+```
+
+---
+
+*Última actualización: Sesion 13 - Fase de Optimización y Documentación*

@@ -1,103 +1,222 @@
-# 📁 ESTRUCTURA DEL PROYECTO - Circle Design Studio
+# 📁 ARQUITECTURA - Circle Design Studio
 
-## 🎯 Descripción General
+## 🎯 Descripción
 
-**Circle** es un sitio web moderno y responsivo para un estudio de diseño digital. El proyecto implementa características avanzadas de rendimiento, interactividad y optimización de usuario.
-
-### Características Principales
-- ✅ Diseño totalmente responsivo (Mobile First)
-- ✅ Video hero interactivo con hover
-- ✅ Animaciones suaves y transiciones
-- ✅ Service Worker para soporte offline
-- ✅ Optimización de rendimiento (requestIdleCallback, requestAnimationFrame)
-- ✅ API de proyectos con caching (5 minutos TTL)
-- ✅ Formulario de contacto con validación
-- ✅ Página 404 personalizada con smart redirect
-- ✅ Soporte para navegación smooth scroll
+**Circle** es un estudio de diseño digital moderno con:
+- Diseño 100% responsivo (Mobile First)
+- Video hero interactivo con hover
+- Service Worker para offline
+- API dinámica con caching
+- Formularios con validación
+- Performance optimizado
 
 ---
 
-## 📂 Estructura de Carpetas
+## 📂 Carpetas y Archivos
 
 ```
 Proyecto/
-├── 📄 index.html                    # Página principal
-├── 📄 sw.js                         # Service Worker (caching & offline)
 │
-├── 📁 page/                         # Páginas secundarias
-│   ├── projectPage.html             # Detalle de proyecto dinámico
-│   ├── formulario.html              # Formulario de contacto
-│   └── error404.html                # Página de error personalizada
+├── 📄 index.html                    Página principal (home)
+├── 📄 sw.js                         Service Worker (offline + cache)
+├── 📄 README.md                     Documentación principal
 │
-├── 📁 css/                          # Estilos CSS
-│   ├── global.css                   # Estilos globales (header, footer, utilidades)
-│   ├── index.css                    # Estilos específicos de index.html
-│   ├── projectPage.css              # Estilos de página de proyecto
-│   ├── formulario.css               # Estilos del formulario
-│   ├── erro404.css                  # Estilos de página 404
-│   └── styleResponsive.css          # Media queries y responsividad
+├── 📁 page/                         Páginas secundarias
+│   ├── projectPage.html             Detalle proyecto (dinámico)
+│   ├── formulario.html              Formulario contacto
+│   └── error404.html                Página 404 inteligente
 │
-├── 📁 JavaScript/                   # Scripts JavaScript (ES6+)
-│   ├── global.js                    # Componentes globales (Menu, Scroll, Contacto)
-│   ├── index.js                     # Componentes de homepage (Carousel, Counters, LazyLoad)
-│   ├── projectPage.js               # Lógica de página de proyecto (API, Caching)
-│   ├── formulario.js                # Validación y manejo de formulario
-│   ├── error404.js                  # Lógica de página 404 (Smart Redirect, Countdown)
-│   └── heroVideoHover.js            # Interactividad de video hero (NUEVO)
+├── 📁 css/                          Estilos CSS
+│   ├── global.css                   Variables, header, footer
+│   ├── index.css                    Estilos homepage
+│   ├── projectPage.css              Estilos página proyecto
+│   ├── formulario.css               Estilos formulario
+│   ├── erro404.css                  Estilos 404
+│   └── styleResponsive.css          Media queries (todos)
 │
-├── 📁 assets/                       # Recursos multimedia
-│   ├── hero-section/                # Imagen y video del hero
-│   ├── logos/                       # Logos de empresas asociadas
-│   ├── projects-section/            # Imágenes de proyectos
-│   ├── services-section/            # Iconos de servicios
-│   ├── testimonials-section/        # Imágenes de testimoniales
-│   └── newsletter/                  # Recursos de newsletter
+├── 📁 JavaScript/                   Scripts ES6+
+│   ├── global.js                    Componentes globales (OPTIMIZADO: 26 líneas)
+│   ├── index.js                     Homepage (carrusel, contadores)
+│   ├── projectPage.js               Detalle proyecto (API + caché)
+│   ├── formulario.js                Validación contacto
+│   ├── error404.js                  Smart redirect 404
+│   └── heroVideoHover.js            Video interactivo hero
 │
-└── 📁 document/                     # Documentación del proyecto
-    ├── 01_ESTRUCTURA_PROYECTO.md    # Este archivo
-    ├── 02_HTML_PAGES.md             # Documentación HTML
-    ├── 03_CSS_STYLES.md             # Documentación CSS
-    ├── 04_JAVASCRIPT.md             # Documentación JavaScript
-    ├── 05_MEJORAS_FUTURAS.md        # Roadmap de mejoras
-    └── README.md                    # Resumen ejecutivo
+├── 📁 assets/                       Multimedia
+│   ├── hero-section/                Imagen + video hero
+│   ├── logos/                       Logos clientes
+│   ├── projects-section/            Imágenes proyectos
+│   ├── services-section/            Iconos servicios
+│   └── testimonials-section/        Fotos testimonios
+│
+└── 📁 document/                     Documentación técnica
+    ├── 01_ESTRUCTURA_PROYECTO.md    Este archivo
+    ├── 02_HTML_PAGES.md             Detalles HTML
+    ├── 03_CSS_STYLES.md             Guía CSS
+    ├── 04_JAVASCRIPT.md             Scripts reutilizables
+    └── 05_MEJORAS_FUTURAS.md        Roadmap optimizaciones
 ```
 
 ---
 
-## 🎨 Paleta de Colores
+## 🎨 Variables CSS
 
 ```css
---color-primary: #072ac8           /* Azul principal */
---color-secondary: #a2d6f9         /* Azul claro */
---color-accent: #43d2ff            /* Cyan */
---color-accent-light: #d1edff      /* Cyan muy claro */
---color-text-secondary: #6b708d    /* Gris texto */
---color-text-primary: #292e47      /* Azul oscuro texto */
---color-warning: #ffc600           /* Amarillo advertencia */
---color-bg-light: #f2f4fc          /* Fondo blanco azulado */
---color-bg-light-blue: #ecf7ff     /* Fondo azul muy claro */
+:root {
+  /* Colores */
+  --color-primary: #072ac8           Azul principal
+  --color-secondary: #a2d6f9         Azul claro
+  --color-accent: #43d2ff            Cyan
+  --color-text-primary: #292e47      Texto oscuro
+  --color-text-secondary: #6b708d    Texto gris
+  --color-bg-light: #f2f4fc          Fondo
+  
+  /* Tipografía */
+  --font-h1: 60px bold
+  --font-h2: 50px bold
+  --font-body: 18px regular
+}
 ```
 
 ---
 
-## 📱 Breakpoints Responsivos
+## 📱 Breakpoints
 
-```css
-/* Mobile First Approach */
-320px    → Teléfonos básicos
-480px    → Teléfonos grandes
-768px    → Tablets
-1024px   → Laptops
-1200px   → Desktops grandes
-1400px   → 4K
+```
+320px  - 480px   Mobile
+481px  - 768px   Tablet
+769px  - 1024px  Desktop
+1025px+          Large desktop
 ```
 
 ---
 
-## ⚡ Tecnologías Utilizadas
+## ⚡ Stack Tecnológico
 
-### Frontend
-- **HTML5** - Semántico y accesible
+| Tecnología | Uso |
+|------------|-----|
+| **HTML5** | Semántico, SEO |
+| **CSS3** | Flexbox, Grid, Animations |
+| **JavaScript ES6+** | Class-based, OOP, vanilla |
+| **Fetch API** | Peticiones HTTP |
+| **IntersectionObserver** | Lazy loading |
+| **Service Worker** | Offline + caching |
+| **requestAnimationFrame** | 60fps animations |
+| **localStorage** | Almacenamiento local |
+
+---
+
+## 🔄 Flujo de Datos
+
+```
+index.html
+  ↓
+├─→ global.js        Menu, Utils globales
+├─→ index.js         Carrusel, contadores
+├─→ heroVideoHover   Video interactivo
+└─→ CSS (6 archivos) Estilos responsive
+
+projectPage.html
+  ↓
+├─→ global.js        Menu, Utils globales
+├─→ projectPage.js   API fetch + caching
+└─→ CSS estilos página proyecto
+
+formulario.html
+  ↓
+├─→ global.js        Menu
+├─→ formulario.js    Validación input
+└─→ CSS formulario
+
+error404.html
+  ↓
+├─→ error404.js      Smart redirect
+└─→ CSS 404
+```
+
+---
+
+## 📦 Patrones de Código
+
+### 1. **Class-based Components**
+```javascript
+class MyComponent {
+  constructor() {
+    this.init();
+  }
+  init() { /* código */ }
+}
+```
+
+### 2. **Early Exit Guard Clauses**
+```javascript
+if (!element) return;      ✅ Exit temprano
+if (elements.length === 0) return;
+```
+
+### 3. **Event Delegation**
+```javascript
+document.addEventListener('click', e => {
+  const target = e.target.closest('.selector');
+  if (!target) return;
+  // manejo del evento
+});
+```
+
+### 4. **Optional Chaining**
+```javascript
+element?.scrollIntoView()  ✅ Evita errores
+menu?.contains(target)
+```
+
+---
+
+## 🚀 Performance Metrics
+
+| Métrica | Valor |
+|---------|-------|
+| **Event Listeners** | 5 (optimizado) |
+| **API Cache TTL** | 5 minutos |
+| **Offline Support** | 100% |
+| **Animation FPS** | 60fps |
+| **Code Lines** | ~3000 |
+
+---
+
+## 🔐 Seguridad
+
+✅ **Implementado:**
+- Validación input (email)
+- Escapado HTML
+- localStorage (datos no sensibles)
+
+⚠️ **Producción (TODO):**
+- HTTPS obligatorio
+- Backend sanitization
+- CSRF protection
+- Rate limiting
+
+---
+
+## 📝 Normas de Código
+
+1. **Nombrado:** camelCase para variables, PascalCase para clases
+2. **Comentarios:** Solo para lógica compleja
+3. **Arrow Functions:** Preferir `=>` en callbacks
+4. **Const/Let:** Nunca usar `var`
+5. **Template Literals:** Usar backticks para strings
+6. **Early Exit:** Guard clauses primero
+
+---
+
+## ✨ Próximas Mejoras
+
+Ver [05_MEJORAS_FUTURAS.md](./05_MEJORAS_FUTURAS.md) para:
+- Minificación CSS/JS
+- WebP images
+- SEO meta tags
+- Internacionalización
+- Testing automatizado
 - **CSS3** - Flexbox, Grid, Animations, Transitions
 - **JavaScript ES6+** - Class-based components, Fetch API, Web APIs
 

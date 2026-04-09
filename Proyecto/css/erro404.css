@@ -1,10 +1,219 @@
 
+/* ========================================
+   ERROR 404 - PÁGINA DIVERTIDA E IMPACTANTE
+   ======================================== */
+
 #content {
     width: 100%;
-    height: auto;
+    min-height: calc(100vh - 150px);
     text-align: center;
-    padding: 100px 20px;
-    /* background-image: url(https://dinahosting.com/blog/upload/2021/03/error-404.jpg); */
-    background-size: cover;
-    background-position: center;
+    padding: 80px 20px;
+    
+    /* Gradiente animado de fondo */
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animación de gradiente */
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Partículas de fondo flotantes */
+#content::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 60% 70%, rgba(255,255,255,0.08) 1px, transparent 1px),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12) 1px, transparent 1px);
+    background-size: 200px 200px, 300px 300px, 250px 250px;
+    background-position: 0 0, 50px 50px, 25px 75px;
+    animation: float 20s linear infinite;
+    z-index: 0;
+}
+
+/* Animación de movimiento de partículas */
+@keyframes float {
+    0% {
+        background-position: 0 0, 50px 50px, 25px 75px;
+    }
+    100% {
+        background-position: -200px 0, 50px -250px, -225px 75px;
+    }
+}
+
+/* Contenedor del contenido (sobre las partículas) */
+#content > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Estilos del H1 */
+#content h1 {
+    font-size: 120px;
+    font-weight: 900;
+    margin: 0;
+    color: white;
+    text-shadow: 
+        3px 3px 0px rgba(0,0,0,0.3),
+        6px 6px 0px rgba(0,0,0,0.2),
+        10px 10px 20px rgba(0,0,0,0.4);
+    animation: bounce 1s ease-in-out infinite;
+    letter-spacing: -2px;
+    line-height: 1;
+}
+
+/* Animación de rebote */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Estilos del párrafo */
+#content p {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    animation: fadeInUp 1s ease-out 0.3s both;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos del botón */
+#content .btn {
+    display: inline-block;
+    padding: 15px 45px;
+    margin-top: 20px;
+    background: white;
+    color: #23a6d5;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 1s ease-out 0.6s both;
+    
+    /* Efecto de borde */
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animación de deslizamiento */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Efecto hover del botón */
+#content .btn:hover {
+    background: #23a6d5;
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Efecto "shine" en el botón */
+#content .btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: translateY(-50%);
+    transition: left 0.5s ease;
+}
+
+#content .btn:hover::after {
+    left: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #content {
+        min-height: calc(100vh - 120px);
+        padding: 60px 20px;
+        gap: 20px;
+    }
+    
+    #content h1 {
+        font-size: 70px;
+    }
+    
+    #content p {
+        font-size: 18px;
+    }
+    
+    #content .btn {
+        padding: 12px 35px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    #content {
+        min-height: calc(100vh - 100px);
+        padding: 40px 15px;
+    }
+    
+    #content h1 {
+        font-size: 50px;
+    }
+    
+    #content p {
+        font-size: 16px;
+    }
+    
+    #content .btn {
+        padding: 10px 30px;
+        font-size: 14px;
+    }
 }

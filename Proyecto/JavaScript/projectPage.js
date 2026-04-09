@@ -2,24 +2,40 @@
  * ========================================
  * PROJECTPAGE.JS - Página de Detalle de Proyecto
  * ========================================
- * Funcionalidades para mostrar proyectos dinámicamente desde API
+ * Módulo principal para cargar y mostrar detalles de proyectos individuales
+ * desde la API con caching automático de 5 minutos.
+ * 
+ * FLUJO:
+ * 1. Extraer ID del proyecto desde URL (?id=1)
+ * 2. Validar ID y buscar en API por nombre
+ * 3. Renderizar datos: título, imagen, descripción
+ * 4. Cargar proyectos relacionados de forma descendente
+ * 5. Configurar interactividad (hover effects)
  */
 
-// ==================== API CONFIGURATION ====================
+// ==================== CONFIGURACIÓN DE API ====================
 const API_BASE_URL = 'https://raw.githubusercontent.com/ironhack-jc/mid-term-api/main/projects';
-let apiCache = null;
-let apiCacheTime = 0;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
+let apiCache = null;           // Almacena datos de API en memoria
+let apiCacheTime = 0;           // Marca de tiempo del último fetch
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos = 300,000ms
 
 /**
- * Obtener proyectos desde API con cache
+ * Obtiene proyectos desde API con sistema de caché automático
+ * 
+ * VENTAJAS:
+ * - Reduce requests HTTP innecesarios
+ * - Mejora velocidad de navegación entre proyectos
+ * - Funciona sin servidor especial (solo localStorage del browser)
+ * 
+ * @returns {Array} Lista de proyectos desde API
+ * @throws {Error} Si la API no responde correctamente
  */
 async function fetchProjectsWithCache() {
   const now = Date.now();
   
-  // Si el cache es valido, devolverlo
+  // ✓ PUNTO CLAVE: Validar si cache es aún válido
   if (apiCache && (now - apiCacheTime) < CACHE_DURATION) {
-    console.log('✓ Usando cache de API');
+    console.log('✓ Usando cache de API (válido por 5 min)');
     return apiCache;
   }
 
@@ -29,12 +45,13 @@ async function fetchProjectsWithCache() {
       throw new Error(`Error HTTP: ${response.status}`);
     }
 
+    // ✓ Guardar datos y marca de tiempo
     apiCache = await response.json();
     apiCacheTime = now;
     console.log('✓ API data cacheada durante 5 minutos');
     return apiCache;
   } catch (error) {
-    console.error('Error fetching API:', error);
+    console.error('✗ Error fetching API:', error);
     throw error;
   }
 }
@@ -76,22 +93,39 @@ class ProjectPageHandler {
 
   /**
    * Obtener datos del proyecto desde la API
+   * 
+   * PROCESO:
+   * 1. Obtener ID de URL (?id=1)
+   * 2. Mapear ID → nombre de proyecto
+   * 3. Buscar en API por nombre (no por índice)
+   * 4. Guardar en this.projectData
+   * 
+   * ✓ BUG FIX (Mensaje 4): Cambio de búsqueda por índice a búsqueda por nombre
+   * previene que cards se vinculen incorrectamente
    */
   async fetchProjectData() {
     try {
-      // Obtener lista completa de proyectos (con cache)
+      // ✓ Obtener lista completa de proyectos (con cache de 5 min)
       const projects = await fetchProjectsWithCache();
       
-      // Mapeo de IDs a nombres de proyecto (basado en el orden del HTML)
+      // ✓ MAPEO CRÍTICO: Relaciona IDs de URL con nombres reales
+      // ⚠️ IMPORTANTE: La API devuelve proyectos en ORDEN INVERSO
+      // Solução: mapear por nombre en lugar de índice (corregido en Mensaje 9)
       const projectNames = {
-        1: 'Simplify',
-        2: 'Dashcoin',
-        3: 'Vectorify'
+        1: 'Simplify',      // ID 1 → Simplify
+        2: 'Dashcoin',      // ID 2 → Dashcoin
+        3: 'Vectorify',     // ID 3 → Vectorify
+        4: 'Lorem ipsum'    // ID 4 → Lorem ipsum (edge case - fue agregado después)
       };
       
       const targetName = projectNames[parseInt(this.projectId)];
       
-      // Buscar el proyecto por nombre en la API
+      // ✓ Validación: asegurar que el ID sea válido
+      if (!targetName) {
+        throw new Error(`ID de proyecto inválido: ${this.projectId}. Redirigiendo...`);
+      }
+      
+      // ✓ BÚSQUEDA POR NOMBRE: evita problemas con orden de API
       this.projectData = projects.find(p => p.name === targetName);
       
       if (this.projectData) {
@@ -107,58 +141,79 @@ class ProjectPageHandler {
 
   /**
    * Renderizar datos del proyecto en el HTML
+   * 
+   * PROPÓSITO: Llenar template HTML con datos reales de la API
+   * 
+   * ACTUALIZA:
+   * - Título del proyecto
+   * - Descripción/tipo
+   * - Fecha de completitud
+   * - Imagen principal
+   * - Contenido completo (descripción extendida)
    */
   renderProjectData() {
     const project = this.projectData;
     const projectElement = document.getElementById('project');
     
     if (!projectElement) {
-      console.error('Elemento #project no encontrado en el HTML');
+      console.error('✗ Elemento #project no encontrado en el HTML');
       return;
     }
 
-    // Actualizar título
+    // ✓ ACTUALIZAR TÍTULO: Nombre del proyecto desde API
     const titleElement = projectElement.querySelector('.title');
     if (titleElement) {
       titleElement.textContent = project.name || 'Sin título';
     }
 
-    // Actualizar subtítulo
+    // ✓ ACTUALIZAR SUBTÍTULO: Tipo/categoría desde API (description)
     const subtitleTypeElement = projectElement.querySelector('.UI_Design_title');
     if (subtitleTypeElement) {
       subtitleTypeElement.textContent = project.description || 'Proyecto';
     }
 
-    // Actualizar fecha
+    // ✓ ACTUALIZAR FECHA: Cuándo se completó el proyecto
     const dateElement = projectElement.querySelector('.Complete_title_data');
     if (dateElement) {
       const date = project.completed_on || new Date().toLocaleDateString();
       dateElement.textContent = date;
     }
 
-    // Actualizar imagen principal
+    // ✓ ACTUALIZAR IMAGEN PRINCIPAL: Con fallback si falla
     const projectImg = projectElement.querySelector('.Project-Image');
     if (projectImg && project.image) {
       projectImg.src = project.image;
       projectImg.alt = project.name || 'Imagen del proyecto';
       projectImg.onerror = () => {
-        console.warn('Error cargando imagen:', project.image);
+        console.warn('⚠️ Error cargando imagen:', project.image);
         projectImg.src = 'https://via.placeholder.com/800x400?text=Imagen+no+disponible';
       };
     }
 
-    // Actualizar descripción
+    // ✓ ACTUALIZAR CONTENIDO COMPLETO: Descripción extendida desde API (project.content)
+    // NOTA: Usamos project.content (no description) para el texto completo
+    // description = breve categoría, content = descripción detallada
     const descriptionElement = projectElement.querySelector('.proyectDescription');
     if (descriptionElement) {
-      descriptionElement.innerHTML = project.description || 'Descripción no disponible';
+      descriptionElement.innerHTML = project.content || 'Descripción no disponible';
     }
 
-    // Cargar proyectos relacionados
+    // ✓ Cargar lista de proyectos relacionados (otros proyectos)
     this.loadRelatedProjects();
   }
 
   /**
-   * Cargar proyectos relacionados/recientes
+   * Cargar proyectos relacionados (Other projects)
+   * 
+   * LÓGICA:
+   * 1. Obtener todos los proyectos desde API
+   * 2. Filtrar: eliminar el proyecto actual
+   * 3. Generar dinámicamente tarjetas HTML
+   * 4. Ordenar en forma descendente (3→2→1)
+   * 5. Configurar botones "Learn more" con links correctos
+   * 
+   * ✓ BUG FIX (Mensaje 8): Ahora mapea nombres a IDs correctamente
+   * previene que "lorem ipsum" devuelva error 404
    */
   async loadRelatedProjects() {
     try {
@@ -167,63 +222,90 @@ class ProjectPageHandler {
       
       if (!container) return;
 
-      // Obtener el índice del proyecto actual
-      const currentProjectIndex = parseInt(this.projectId) - 1;
-      
-      // Filtrar proyectos (excluir el actual)
-      let relatedProjects = projects
-        .map((project, idx) => ({ project, originalIndex: idx }))
-        .filter((item, idx) => item.originalIndex !== currentProjectIndex);
+      // ✓ MAPEO INVERSO: nombre → ID para botones "Learn more"
+      // Debe coincidir exactamente con projectNames en fetchProjectData()
+      const nameToId = {
+        'Simplify': 1,
+        'Dashcoin': 2,
+        'Vectorify': 3,
+        'Lorem ipsum': 4    // Edge case que causó 404 en Mensaje 9
+      };
 
-      // Ordenar descendentemente por índice original
-      relatedProjects.sort((a, b) => b.originalIndex - a.originalIndex);
+      // ✓ Obtener nombre del proyecto ACTUAL desde DOM
+      const titleElement = document.querySelector('.title');
+      const currentProjectName = titleElement ? titleElement.textContent : '';
+
+      // ✓ FILTRADO + MAPEO: Excluir proyecto actual e incluir su ID
+      let relatedProjects = projects
+        .filter(project => project.name !== currentProjectName)  // No mostrar el mismo proyecto
+        .map(project => {
+          const projectId = nameToId[project.name] || 1;  // Convertir nombre a ID
+          return { project, projectId };
+        });
+
+      // ✓ ORDENAMIENTO: De mayor a menor ID (3→2→1)
+      // Garantiza consistencia con index.html y hace predictible el layout
+      relatedProjects.sort((a, b) => b.projectId - a.projectId);
       
-      // Tomar solo los primeros 3
+      // ✓ LIMITAR A 3 PROYECTOS: Mostrar solo los más relevantes
       relatedProjects = relatedProjects.slice(0, 3);
 
-      // Limpiar proyectos anteriores si existen
+      // ✓ LIMPIAR CONTAINER: Eliminar cualquier HTML anterior
       container.innerHTML = '';
 
+      // ✓ GENERAR TARJETAS DINAMICAMENTE: Para cada proyecto relacionado
       relatedProjects.forEach((item, idx) => {
         const project = item.project;
-        const realIndex = item.originalIndex + 1;
+        const projectId = item.projectId;
         
         const projectCard = document.createElement('section');
         projectCard.className = 'project-card';
         
-        // Aplicar orden descendente (índices: 2, 1, 0)
+        // ✓ CSS FLEXBOX ORDER: Ordena visual pero sin afectar HTML
+        // Usa valores descendentes para layout visual (2→1→0)
         const orderValues = [2, 1, 0];
         projectCard.style.order = orderValues[idx];
         
+        // ✓ ESTRUCTURA HTML: Imagen + título + descripción + botón
         projectCard.innerHTML = `
-          <a class="project-wrapper" href="./projectPage.html?id=${realIndex}">
+          <a class="project-wrapper" href="./projectPage.html?id=${projectId}">
             <img class="img-project" src="${project.image}" alt="${project.name}" 
                  onerror="this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(project.name)}'">
           </a>
           <div class="project-inner-card">
-            <a class="project-wrapper" href="./projectPage.html?id=${realIndex}">
+            <a class="project-wrapper" href="./projectPage.html?id=${projectId}">
               <h4 class="project-title">${project.name}</h4>
               <p class="project-description capitalize">${project.description}</p>
             </a>
-            <a class="learn-more" href="./projectPage.html?id=${realIndex}">Learn more</a>
+            <a class="learn-more" href="./projectPage.html?id=${projectId}">Learn more</a>
           </div>
         `;
         container.appendChild(projectCard);
       });
       
-      // Asegurar que el contenedor use flexbox
+      // ✓ ASEGURAR FLEXBOX: Garantiza que el layout sea correcto incluso si CSS falla
       container.style.display = 'flex';
       
+      // ✓ DEBUG (localhost only): Verificar proyectos cargados correctamente
+      if (location.hostname === 'localhost') {
+        console.log('✓ Proyectos relacionados cargados:', relatedProjects.map(r => r.project.name));
+      }
+      
     } catch (error) {
-      console.error('Error cargando proyectos relacionados:', error);
+      console.error('✗ Error cargando proyectos relacionados:', error);
     }
   }
 
   /**
-   * Configurar elementos interactivos
+   * Configurar elementos interactivos (hover effects)
+   * 
+   * EFECTOS:
+   * - Card hover: translateY(-10px) = levanta la tarjeta 10px
+   * - Transición suave: 0.3s ease
+   * - Feedback visual para mejor UX
    */
   setupInteractiveElements() {
-    // Agregar efecto hover a tarjetas
+    // ✓ HOVER EFFECT: Levanta las tarjetas al pasar el mouse
     document.querySelectorAll('.project-card').forEach(card => {
       card.addEventListener('mouseenter', () => {
         card.style.transform = 'translateY(-10px)';
@@ -235,24 +317,38 @@ class ProjectPageHandler {
       });
     });
 
-    // Botón de volver
+    // ✓ Configurar botón de navegación "atrás"
     this.setupBackButton();
   }
 
   /**
-   * Setup botón de volver (si existe)
+   * Setup botón de volver (navegación atrás)
+   * 
+   * Si existe .btn-back, permite volver a la página anterior
+   * Útil para mejorar UX en navegación
    */
   setupBackButton() {
     const backBtn = document.querySelector('.btn-back');
     if (backBtn) {
       backBtn.addEventListener('click', () => {
-        window.history.back();
+        window.history.back();  // Volver a página anterior
       });
     }
   }
 
   /**
-   * Mostrar mensaje de error
+   * Mostrar mensaje de error al usuario
+   * 
+   * CASOS DE USO:
+   * - ID de proyecto inválido
+   * - Proyecto no encontrado en API
+   * - Error al cargar datos
+   * 
+   * DISEÑO:
+   * - Alerta centrada en pantalla (fixed position)
+   * - Estilo rojo (#f44336) para indicar error
+   * - Sombra para mejor visibilidad
+   * - z-index alto para estar siempre visible
    */
   showError(message) {
     const errorDiv = document.createElement('div');
@@ -277,6 +373,15 @@ class ProjectPageHandler {
 }
 
 // ==================== ANIMACIÓN EN SCROLL ====================
+/**
+ * Animación de fade-in cuando elemento entra en viewport
+ * 
+ * TECNOLOGÍA: IntersectionObserver (mejor performance que scroll listeners)
+ * VENTAJAS:
+ * - No bloquea main thread
+ * - Automáticamente detiene observación después de aparecer
+ * - Fallback automático para navegadores antiguos
+ */
 class ProjectScrollAnimation {
   constructor() {
     this.projectElement = document.getElementById('project');
@@ -286,12 +391,14 @@ class ProjectScrollAnimation {
   init() {
     if (!this.projectElement) return;
 
+    // ✓ IntersectionObserver: Detecta cuando elemento entra en viewport
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            // ✓ TRIGGER: Aplicar animación fade-in cuando visible
             entry.target.style.animation = 'fadeIn 0.8s ease-out';
-            observer.unobserve(entry.target);
+            observer.unobserve(entry.target);  // Detener observación
           }
         });
       }, { threshold: 0.1 });

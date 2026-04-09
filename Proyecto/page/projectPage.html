@@ -23,11 +23,11 @@
            <ul>
             <li><a href="../index.html">Home</a></li>
             <li><a href="../index.html">Projects</a></li>
-            <li><a href="../page/formulario.html">Services</a></li>
+            <li><a href="../index.html">Services</a></li>
           </ul>
         </nav>
 
-        <button class="btn-contact">Contact Us</button>
+        <button class="btn-contact"><a href="../page/formulario.html">Contact Us</a></button>
       </nav>
     </header>
     <article id="project">
@@ -55,44 +55,7 @@
     <article class="recent-projects">
       <h2 class="capitalize">Other projects</h2>
         <div class="projects-container">
-          <section class="project-card">
-            <a class="project-wrapper" href="../index.html#projects">
-                  <img class="img-project" src="https://github.com/ironhack-jc/mid-term-api/blob/main/2.jpg?raw=true" alt="Dashcoin image">
-            </a>
-            <div class="project-inner-card">
-              <a class="project-wrapper" href="../index.html#projects">
-              <h4 class="project-title">Dashcoin</h4>
-              <p class="project-description capitalize">Web Development</p>
-              </a>
-              <a class="learn-more" href="../index.html#projects">Learn more</a>
-            </div>
-          </section>
-
-          <section class="project-card">
-              <a class="project-wrapper" href="../index.html#projects">
-                  <img class="img-project" src="https://github.com/ironhack-jc/mid-term-api/blob/main/3.jpg?raw=true" alt="Vectorify image">
-              </a>
-              <div class="project-inner-card">
-                <a class="project-wrapper" href="../index.html#projects">
-                  <h4 class="project-title">Vectorify</h4>
-                  <p class="project-description capitalize">User Experience Design</p>
-                </a>
-                <a class="learn-more" href="../index.html#projects">Learn more</a>
-              </div> 
-          </section>
-      
-          <section class="project-card">
-              <a class="project-wrapper" href="../index.html#projects">
-                  <img class="img-project" src="https://github.com/ironhack-jc/mid-term-api/blob/main/4.jpg?raw=true" alt="Lorem ipsum image">
-              </a>
-              <div class="project-inner-card">
-                  <a class="project-wrapper" href="../index.html#projects">
-                    <h4 class="project-title">Lorem ipsum</h4>
-                    <p class="project-description capitalize">Lorem ipsum</p>
-                  </a>
-                  <a class="learn-more" href="../index.html#projects">Learn more</a>
-              </div> 
-          </section>
+          <!-- Las tarjetas se generan dinámicamente con JavaScript -->
         </div>
     </article>
     <article id="newsletter">
@@ -121,7 +84,7 @@
             <li><a href="#">About Us</a></li>
             <li><a href="#">Press</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="./error404.html">Privacy Policy</a></li>
           </ul>
         </section>
       </article>
@@ -138,6 +101,22 @@
               if (location.hostname === 'localhost') {
                 console.log('✓ Service Worker registrado:', reg.scope);
               }
+              
+              // Detectar actualizaciones cada 5 segundos
+              setInterval(() => {
+                reg.update();
+              }, 5000);
+              
+              // Cuando hay una actualización disponible, recargar página
+              reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('✓ Nueva versión disponible - recargando...');
+                    window.location.reload();
+                  }
+                });
+              });
             })
             .catch(err => {
               if (location.hostname === 'localhost') {
