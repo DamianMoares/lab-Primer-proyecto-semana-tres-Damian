@@ -32,12 +32,13 @@ body{
     gap: 8px;
     align-items: center;
 }
-.form-group, 
+.form-group label, 
 .form-group_diferent label {
    
     font-size: 16px;
     font-weight: 500;
 }
+.form-group textarea,
 .form-group_diferent textarea{
     width: 100%;
     background-color: rgba(201, 201, 201, 0.36);
@@ -60,20 +61,25 @@ body{
 
 }
 
-.form-group input,
-.form-group textarea {
+.form-group input {
+    width: 100%;
     background-color: rgba(201, 201, 201, 0.36);
     color: var(--color-text-secondary);
-    padding: 12px;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+}
+/* .form-group textarea {
+    background-color: rgba(201, 201, 201, 0.36);
+    width: 100%;
+    color: var(--color-text-secondary);
+    resize: vertical;
     border: 1px solid var(--color-border);
+    padding: 12px;
     border-radius: 4px;
     font-size: 16px;
-}
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-
-}
+} */
 .container_form_button {
     
     width: 100%;

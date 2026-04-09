@@ -37,9 +37,10 @@ class ContactForm {
   validateField(field) {
     const value = field.value.trim();
     const errorDiv = field.parentElement.querySelector('.error-message');
-    
+    const successDiv = field.parentElement.querySelector('.success-message');
     // Remover error anterior si existe
     if (errorDiv) errorDiv.remove();
+    if (successDiv) successDiv.remove();
     field.style.borderColor = '';
 
     if (!value) return true; // Validar al enviar, no al escribir
@@ -57,13 +58,16 @@ class ContactForm {
         message = 'Email inválido';
         break;
       case 'phone':
-        isValid = value.length >= 7;
+        isValid = value.length >= 9;
         message = 'Teléfono inválido';
         break;
       case 'message':
         isValid = value.length >= 10;
         message = 'Mín. 10 caracteres';
         break;
+      default:
+        isValid = true;
+        
     }
 
     if (!isValid) {
@@ -73,6 +77,13 @@ class ContactForm {
       err.style.cssText = 'color:#f44336; font-size:12px; display:block; margin-top:4px;';
       field.style.borderColor = '#f44336';
       field.parentElement.appendChild(err);
+    }else{
+      const valida = document.createElement('span');
+      valida.className = 'success-message';
+      valida.textContent = 'Campo válido';
+      valida.style.cssText = 'color:#4CAF50; font-size:12px; display:block; margin-top:4px;';
+      field.style.borderColor = '#4CAF50';
+      field.parentElement.appendChild(valida);
     }
 
     return isValid;
