@@ -31,7 +31,7 @@
       </nav>
     </header>
     <article id="project">
-        <h1 class="title">Simplify</h1=>
+        <h1 class="title">Simplify</h1>
           <div class="subTitle">
             <span class="UI_Design_title">UI Design & Development</span>
             <span class="completed_title">
@@ -41,7 +41,7 @@
             
           </div>
           <div class="projectImgSection">
-            <img class="Project-Image" src="https://github.com/ironhack-jc/mid-term-api/blob/main/1.jpg?raw=true" alt="Simplify Image">
+            <img class="Project-Image" src="https://github.com/ironhack-jc/mid-term-api/blob/main/1.jpg?raw=true" alt="Simplify Image" loading="lazy">
           </div>
           <section class="proyectDescription">
             
@@ -56,41 +56,41 @@
       <h2 class="capitalize">Other projects</h2>
         <div class="projects-container">
           <section class="project-card">
-            <a class="project-wrapper" href="../pages/projects.html?id=2">
+            <a class="project-wrapper" href="../index.html#projects">
                   <img class="img-project" src="https://github.com/ironhack-jc/mid-term-api/blob/main/2.jpg?raw=true" alt="Dashcoin image">
             </a>
             <div class="project-inner-card">
-              <a class="project-wrapper" href="../pages/projects.html?id=2">
+              <a class="project-wrapper" href="../index.html#projects">
               <h4 class="project-title">Dashcoin</h4>
               <p class="project-description capitalize">Web Development</p>
               </a>
-              <a class="learn-more" href="../pages/projects.html?id=2">Learn more</a>
+              <a class="learn-more" href="../index.html#projects">Learn more</a>
             </div>
           </section>
 
           <section class="project-card">
-              <a class="project-wrapper" href="../pages/projects.html?id=3">
+              <a class="project-wrapper" href="../index.html#projects">
                   <img class="img-project" src="https://github.com/ironhack-jc/mid-term-api/blob/main/3.jpg?raw=true" alt="Vectorify image">
               </a>
               <div class="project-inner-card">
-                <a class="project-wrapper" href="../pages/projects.html?id=3">
+                <a class="project-wrapper" href="../index.html#projects">
                   <h4 class="project-title">Vectorify</h4>
                   <p class="project-description capitalize">User Experience Design</p>
                 </a>
-                <a class="learn-more" href="../pages/projects.html?id=3">Learn more</a>
+                <a class="learn-more" href="../index.html#projects">Learn more</a>
               </div> 
           </section>
       
           <section class="project-card">
-              <a class="project-wrapper" href="../pages/projects.html?id=4">
+              <a class="project-wrapper" href="../index.html#projects">
                   <img class="img-project" src="https://github.com/ironhack-jc/mid-term-api/blob/main/4.jpg?raw=true" alt="Lorem ipsum image">
               </a>
               <div class="project-inner-card">
-                  <a class="project-wrapper" href="../pages/projects.html?id=4">
+                  <a class="project-wrapper" href="../index.html#projects">
                     <h4 class="project-title">Lorem ipsum</h4>
                     <p class="project-description capitalize">Lorem ipsum</p>
                   </a>
-                  <a class="learn-more" href="../pages/projects.html?id=4">Learn more</a>
+                  <a class="learn-more" href="../index.html#projects">Learn more</a>
               </div> 
           </section>
         </div>
@@ -100,7 +100,7 @@
         <p>Let us help you!</p>
         <div class="sectioFiveEmail">
           <input type="email"  placeholder="Enter your email address" class="email-input">
-          <a href="./pages/contact.html" class="btn-submit">Suscribe</a>
+          <a href="../page/formulario.html" class="btn-submit">Suscribe</a>
         </div>
     </article>
     <!-- Pie de pagina -->
@@ -126,5 +126,26 @@
         </section>
       </article>
     </footer>
+    <script src="../JavaScript/global.js" defer></script>
+    <script src="../JavaScript/projectPage.js" defer></script>
+    
+    <!-- Service Worker Registration -->
+    <script defer>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('../sw.js')
+            .then(reg => {
+              if (location.hostname === 'localhost') {
+                console.log('✓ Service Worker registrado:', reg.scope);
+              }
+            })
+            .catch(err => {
+              if (location.hostname === 'localhost') {
+                console.error('✗ Error registrando SW:', err);
+              }
+            });
+        });
+      }
+    </script>
   </body>
 </html>

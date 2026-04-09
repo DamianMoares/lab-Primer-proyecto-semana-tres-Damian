@@ -16,7 +16,7 @@
           alt="Logo de circle"
           class="logo"
         />
-        <!-- menu_de_navegacion -->
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" />
         <label for="menu-toggle" class="hamburger">☰</label>
         <nav class="menu">
           <ul>
@@ -49,14 +49,35 @@
         <section>
           <ul class="footer-links">
             <li><a href="#">Team</a></li>
-            <li><a href="#services">Services</a></li>
+            <li><a href="#">Services</a></li>
             <li><a href="#">About Us</a></li>
             <li><a href="#">Press</a></li>
-            <li><a href="#projects">Projects</a></li>
+            <li><a href="#">Projects</a></li>
             <li><a href="#">Privacy Policy</a></li>
           </ul>
         </section>
       </article>
     </footer>
+    <script src="../JavaScript/global.js" defer></script>
+    <script src="../JavaScript/error404.js" defer></script>
+    
+    <!-- Service Worker Registration -->
+    <script defer>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('../sw.js')
+            .then(reg => {
+              if (location.hostname === 'localhost') {
+                console.log('✓ Service Worker registrado:', reg.scope);
+              }
+            })
+            .catch(err => {
+              if (location.hostname === 'localhost') {
+                console.error('✗ Error registrando SW:', err);
+              }
+            });
+        });
+      }
+    </script>
   </body>
 </html>

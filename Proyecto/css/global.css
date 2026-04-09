@@ -87,6 +87,7 @@ h4 {
   padding: 0;
 }
 
+
 .menu a {
   color: var(--color-text-primary);
   font-size: 16px;
@@ -115,6 +116,7 @@ h4 {
 .btn-contact:hover {
   background-color: var(--color-accent);
   color: var(--color-text-primary);
+  transform: scale(1.05);
 }
 
 .footer {
@@ -131,24 +133,8 @@ h4 {
 .logo-link {
   display: inline-block;
 }
-.menu ul {
-  list-style: none;
-  display: flex;
-  gap: 48px;
-  margin: 0;
-  padding: 0;
-}
 
-.menu a {
-  text-decoration: none;
-  color: var(--color-text-secondary);
-  font-size: 18px;
-  font-weight: 600;
-}
 
-.menu a:hover {
-  color: var(--color-primary);
-}
 
 /* Hamburger Menu */
 .hamburger {
@@ -188,16 +174,6 @@ h4 {
 .menu-toggle:checked + .hamburger + .menu ul li a {
   display: block;
   padding: 16px 20px;
-}
-
-.btn-contact {
-  background: var(--color-primary);
-  color: var(--color-bg-light);
-  border: none;
-  padding: 18px 40px;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
 }
 #newsletter {
   width: 90%;

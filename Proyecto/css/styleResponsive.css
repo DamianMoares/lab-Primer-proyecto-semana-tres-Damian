@@ -196,7 +196,7 @@
     max-width: 100%;
   }
 
-  .secction-profile {
+  .section-profile {
     flex-direction: row;
     align-items: center;
     gap: 16px;
@@ -208,7 +208,7 @@
     flex-shrink: 0;
   }
 
-  .secction-profile p {
+  .section-profile p {
     margin: 0;
     font-size: 14px;
   }
@@ -532,7 +532,7 @@
     max-width: 100%;
   }
 
-  .secction-profile {
+  .section-profile {
     flex-direction: column;
     align-items: center;
     gap: 12px;
@@ -544,7 +544,7 @@
     margin: 0;
   }
 
-  .secction-profile p {
+  .section-profile p {
     margin: 0;
     font-size: 13px;
   }

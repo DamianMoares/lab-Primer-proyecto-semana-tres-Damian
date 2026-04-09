@@ -92,12 +92,37 @@ body {
   max-width: 430px;
   width: 100%;
   height: auto;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.hero-main:hover {
+  cursor: pointer;
+}
+
+.hero-video-player {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  max-width: 430px;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+  border-radius: 4px;
+  display: block;
 }
 
 .hero-card {
   position: absolute;
   z-index: 2;
   height: auto;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .card-top {
@@ -233,7 +258,7 @@ body {
 /* Seccion 3 */
 .section3 {
   background: var(--color-text-primary);
-  background-image: url(../assets/project-assets-20260406T084947Z-1-001/project-assets/testimonial-section/orbit.png);
+  background-image: url(../assets/testimonial-section/orbit.png);
   background-size: cover;
   background-repeat: no-repeat;
   text-align: -webkit-center;
@@ -257,7 +282,7 @@ body {
   width: 120px;
   height: auto;
   z-index: 3;
-  background: url("../assets/project-assets-20260406T084947Z-1-001/project-assets/testimonial-section/orbit.png");
+  background: url("../assets/testimonial-section/orbit.png");
 }
 .corner {
   position: absolute;
