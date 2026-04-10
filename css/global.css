@@ -1,106 +1,127 @@
+/* ==============================================
+   VARIABLES GLOBALES (COLORS & TYPOGRAPHY)
+============================================== */
 :root {
-  /* Colores */
-  --color-primary: #072ac8;
-  --color-secondary: #a2d6f9;
-  --color-accent: #43d2ff;
-  --color-accent-light: #d1edff;
-  --color-text-secondary: #6b708d;
-  --color-text-primary: #292e47;
-  --color-warning: #ffc600;
-  --color-bg-light: #f2f4fc;
-  --color-bg-light-blue: #ecf7ff;
+  /* Colores principales del diseño */
+  --color-primary:         #072ac8;     /* Color principal (azul oscuro) */
+  --color-secondary:       #a2d6f9;     /* Azul claro secundario */
+  --color-accent:          #43d2ff;     /* Acento claro (cian/azul claro) */
+  --color-accent-light:    #d1edff;     /* Fondo azul muy claro */
+  --color-text-secondary:  #6b708d;     /* Gris azulado para texto secundario */
+  --color-text-primary:    #292e47;     /* Gris oscuro para texto principal */
+  --color-warning:         #ffc600;     /* Amarillo para alertas / newsletter */
+  --color-bg-light:        #f2f4fc;     /* Fondo claro general */
+  --color-bg-light-blue:   #ecf7ff;     /* Fondo azulado muy claro */
 
-  /* Tipografía */
-  --font-h1: Heading H1 60 Bold;
-  --font-h2: Heading H2 50 Bold;
-  --font-h3: Heading H3 40 Bold;
-  --font-h4: Heading H4 24 Bold;
-  --font-body-lg: Body Intro Text 24 Medium;
-  --font-body: Body Intro Text 20 Regular;
-  --font-text-sm: Heading Text 17 Regular;
-  --font-text-sm-medium: Heading Text 17 Medium;
-  --font-caption: Caption 1 text 15 Regular;
-  --font-caption-medium: Caption 2 text 15 Regular;
+  /* Tipografías (debes asegurarte de que estos tipos estén cargados en tu HTML) */
+  --font-h1:               "Heading H1 60 Bold", sans-serif;
+  --font-h2:               "Heading H2 50 Bold", sans-serif;
+  --font-h3:               "Heading H3 40 Bold", sans-serif;
+  --font-h4:               "Heading H4 24 Bold", sans-serif;
+  --font-body-lg:          "Body Intro Text 24 Medium", sans-serif;
+  --font-body:             "Body Intro Text 20 Regular", sans-serif;
+  --font-text-sm:          "Heading Text 17 Regular", sans-serif;
+  --font-text-sm-medium:   "Heading Text 17 Medium", sans-serif;
+  --font-caption:          "Caption 1 text 15 Regular", sans-serif;
+  --font-caption-medium:   "Caption 2 text 15 Regular", sans-serif;
 }
 
+
+/* ==============================================
+   RESET & ESTILOS GLOBALES
+============================================== */
 * {
-  max-width: 1200px;
-  /* background-color: var(--color-bg-light); */
+ 
+  /* Máximo ancho global para evitar que ningún elemento se pase de 1200px */
+  /* max-width: px; */
+
+  /* Reset básico */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* outline: 1px solid red; */
+
+  /* Fuente global */
   font-family: "Roboto", sans-serif;
 }
+
+
+
+
+/* ==============================================
+   ENCABEZADOS (H1–H4)
+============================================== */
 h1,
 h2,
 h3,
 h4 {
-  line-height: 0.98;
-  margin: 0 0 28px;
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  color: var(--color-text-primary);
+  line-height: 0.98;                /* Ajuste visual para títulos */
+  margin: 0 0 28px;                 /* Margen inferior para separar de contenido */
+  font-weight: 800;                 /* Negrita fuerte */
+  letter-spacing: -1.5px;           /* Estilo moderno y compacto */
+  color: var(--color-text-primary); /* Color principal del texto */
 }
-h1 {
-  font-family: var(--font-h1);
-}
-h2 {
-  font-family: var(--font-h2);
-}
-h3 {
-  font-family: var(--font-h3);
-}
-h4 {
-  font-family: var(--font-h4);
-}
-/* Cabecera */
 
+/* Asignación de fuentes por nivel */
+h1 { font-family: var(--font-h1); }
+h2 { font-family: var(--font-h2); }
+h3 { font-family: var(--font-h3); }
+h4 { font-family: var(--font-h4); }
+
+
+/* ==============================================
+   CABECERA (HEADER)
+============================================== */
 .header {
-  background-color: rgba(255, 255, 255, 0.882);
-  padding: 24px 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.882); /* Blanco ligeramente transparente */
+  padding: 24px 0;                                /* Espacio vertical */
+  position: sticky;                               /* Se queda fija al hacer scroll */
+  top: 0;                                         /* Pegado al borde superior */
+  z-index: 100;                                   /* Por encima de otros elementos */
 }
 
 .header-inner {
-  width: min(1200px, 90%);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
+  width: min(1200px, 90%);                       /* Máximo 1200px, mínimo 90% del ancho */
+  margin: 0 auto;                                 /* Centrado horizontal */
+  display: flex;                                  /* Layout moderno */
+  align-items: center;                            /* Centrado vertical de elementos */
+  justify-content: space-between;                 /* Espacio entre logo y menú */
+  padding: 0 16px;                                /* Pequeño margen interno en los lados */
 }
 
+
+/* Menú de navegación */
 .menu {
   display: flex;
   align-items: center;
-  gap: 32px;
-  flex: 1;
-  justify-content: center;
+  gap: 32px;                                      /* Espacio entre elementos del menú */
+  flex: 1;                                        /* Ocupa el espacio disponible */
+  justify-content: center;                        /* Centra los enlaces */
 }
 
 .menu ul {
-  list-style: none;
+  list-style: none;                               /* Quita viñetas */
   display: flex;
   gap: 32px;
   margin: 0;
   padding: 0;
 }
-
 
 .menu a {
   color: var(--color-text-primary);
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease;                   /* Suaviza color al hacer hover */
 }
 
 .menu a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary);                   /* Resalta al pasar el ratón */
 }
 
+
+/* Botón de contacto */
 .btn-contact {
   background-color: var(--color-primary);
   color: #ffffff;
@@ -111,10 +132,10 @@ h4 {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  flex-shrink: 0;
+  flex-shrink: 0;                                 /* Evita que se encoja */
 }
 
-.btn-contact a{
+.btn-contact a {
   color: #ffffff;
   text-decoration: none;
 }
@@ -122,43 +143,29 @@ h4 {
 .btn-contact:hover {
   background-color: var(--color-accent);
   color: var(--color-text-primary);
-  transform: scale(1.05);
-}
-
-.footer {
-  margin: 10%;
-}
-.logo {
-  width: 110px;
-  height: auto;
-}
-.logo-footer {
-  width: 100px;
-  height: auto;
-}
-.logo-link {
-  display: inline-block;
+  transform: scale(1.05);                        /* Efecto de zoom suave */
 }
 
 
-
-/* Hamburger Menu */
+/* ==============================================
+   HAMBURGER MENU (RESPONSIVE)
+============================================== */
 .hamburger {
-  display: none;
+  display: none;                                  /* Oculto por defecto (se usa solo en móvil) */
   font-size: 28px;
   cursor: pointer;
   color: var(--color-text-primary);
 }
 
 .menu-toggle {
-  display: none;
+  display: none;                                  /* Checkbox para toggle en móvil */
 }
 
 .menu-toggle:checked + .hamburger + .menu {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 70px;
+  top: 70px;                                      /* Debajo del header */
   left: 0;
   right: 0;
   background: var(--color-bg-light);
@@ -181,14 +188,19 @@ h4 {
   display: block;
   padding: 16px 20px;
 }
+
+
+/* ==============================================
+   NEWSLETTER / SECCIÓN CON FONDO AMARILLO
+============================================== */
 #newsletter {
   width: 90%;
   height: auto;
-  background: var(--color-warning);
+  background: var(--color-warning);              /* Fondo amarillo llamativo */
   text-align: center;
-  margin: 5%;
-  padding: 60px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin: 5% 5%;                                  /* 5% top/bottom y 5% left/right */
+  padding: 60px 0;                                /* Alto interno */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);     /* sombra sutil */
 }
 
 #newsletter h2 {
@@ -199,6 +211,7 @@ h4 {
   margin: 0;
   font-weight: 800;
 }
+
 #newsletter p {
   background: none;
   color: var(--color-text-secondary);
@@ -206,6 +219,8 @@ h4 {
   padding: 0 0 32px;
   margin: 0;
 }
+
+/* Sección de email */
 .sectioFiveEmail {
   background: none;
   display: flex;
@@ -214,6 +229,7 @@ h4 {
   align-items: center;
   flex-wrap: wrap;
 }
+
 .email-input {
   height: 44px;
   background: var(--color-bg-light);
@@ -224,6 +240,7 @@ h4 {
   border-radius: 4px;
   font-size: 14px;
 }
+
 .btn-submit {
   height: 44px;
   background: var(--color-text-primary);
@@ -238,23 +255,51 @@ h4 {
   display: inline-flex;
   align-items: center;
   border-radius: 4px;
-  transition: var(--color-bg-light) 0.3s ease;
+  transition: background 0.3s ease;              /* Suaviza cambio de fondo */
 }
 
 .btn-submit:hover {
   background: var(--color-primary);
 }
 
-/* Pie de página */
+
+/* ==============================================
+   CONTENEDOR PRINCIPAL CENTRADO (GLOBAL)
+============================================== */
+/* Clase genérica para centrar el contenido principal de cualquier página */
+.main-container {
+  width: min(100% - 32px, 1200px);   /* 90% con márgenes, pero no más de 1200px */
+  margin: 0 auto;                     /* Centrado horizontal */
+  padding: 0 16px;                    /* Espacio interno en los lados */
+  box-sizing: border-box;
+}
+
+/* Opcional: centrado vertical y horizontal para páginas completas */
+.main-container.centered {
+  min-height: 100vh;                  /* Ocupa toda la altura de la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;            /* Centra verticalmente */
+  align-items: stretch;               /* Los hijos se estiran horizontalmente */
+}
+
+
+/* ==============================================
+   PIE DE PÁGINA (FOOTER)
+============================================== */
+.footer {
+  width: 100%;                     /* Espacio grande respecto al resto */
+}
 
 .piePage {
+  width: 100%;
   padding: 48px 0;
   background-color: var(--color-bg-light);
   border-top: 1px solid var(--color-accent-light);
 }
 
 .footer-container {
-  width: 90%;
+
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -292,4 +337,22 @@ h4 {
 
 .footer-links li a:hover {
   color: var(--color-primary);
+}
+
+
+/* ==============================================
+   LOGOS (IMÁGENES BASE)
+============================================== */
+.logo {
+  width: 50px;
+  height: auto;
+}
+
+.logo-footer {
+  width: 50px;
+  height: auto;
+}
+
+.logo-link {
+  display: inline-block;              /* Para que el logo sea clickeable */
 }

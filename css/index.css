@@ -1,31 +1,50 @@
-
-
-html {
-  scroll-behavior: smooth;
-  display: block;
-}
+/* ==============================================
+   BODY + CONTENEDOR PRINCIPAL (CENTRADO GLOBAL)
+============================================== */
+/* Aseguramos que el body ocupe toda la altura y no desplace el contenido a la izquierda */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  color: var(--color-text-primary);
+  padding: 0;
+  min-height: 100vh;                  /* ocupa al menos toda la pantalla */
+  display: flex;
+  flex-direction: column;             /* para que el main y footer se alineen bien */
+}
+article{
+  margin: 0 10%;
+}
+/* Contenedor principal que centra TODO el contenido horizontalmente */
+.main-container {
+  width: min(100% - 32px, 1200px);   /* 90% con márgenes laterales, máximo 1200px */
+  margin: 0 auto;                     /* centra el contenedor en el viewport */
+  padding: 0 16px;                    /* margen interno de 16px en los lados */
+  box-sizing: border-box;            /* incluye el padding en el ancho */
+  flex: 1;                            /* para que ocupe el espacio restante */
 }
 
 
-/*Primera seccion*/
-
+/* ==============================================
+   PRIMERA SECCIÓN (HERO / SECTION1)
+============================================== */
+/* Sección principal del hero */
 .section1 {
-  min-height: 100vh;
-  padding: 60px 70px 40px;
+  min-height: 100vh;                  /* altura mínima = 100vh */
+  padding: 60px 20px 40px;           /* espaciado interno: top 60px, left/right 20px, bottom 40px */
   box-sizing: border-box;
+  width: 100%;                        /* ancho total del contenedor */
 }
 
+/* Contenedor interno de la sección 1 (centrado dentro del main-container) */
 .section1-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: center;                /* centrado vertical de los hijos */
+  justify-content: space-between;     /* separa la parte de texto y la parte de imagen */
   gap: 40px;
+  max-width: 1200px;                  /* ancho máximo de 1200px */
+  margin: 0 auto;                     /* centra horizontalmente este contenedor */
 }
 
+
+/* Parte izquierda: texto del hero */
 .part-One-Section-One {
   flex: 1;
   max-width: 560px;
@@ -48,6 +67,7 @@ body {
   max-width: 520px;
 }
 
+/* Botones de acción */
 .buttons {
   display: flex;
   align-items: center;
@@ -77,6 +97,8 @@ body {
   font-weight: 600;
 }
 
+
+/* Parte derecha: imagen/hero */
 .part-One-Section-two {
   flex: 1;
   position: relative;
@@ -128,7 +150,7 @@ body {
 .card-top {
   background: none;
   width: 280px;
-  top:0;
+  top: 0;
   left: -50px;
 }
 
@@ -140,7 +162,9 @@ body {
   right: -70px;
 }
 
+/* Parte inferior de la sección 1 (logos, marcas, etc.) */
 .part-One-Section-three {
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -153,25 +177,26 @@ body {
   max-height: 40px;
   width: auto;
   filter: grayscale(1);
-  transition:
-    filter 0.25s ease,
-    transform 0.25s ease;
+  transition: filter 0.25s ease, transform 0.25s ease;
 }
 
 .part-One-Section-three img:hover {
   filter: grayscale(0);
   transform: scale(2.02);
 }
-/*Seccion dos */
-.section2,
-.section4 {
+
+
+/* ==============================================
+   SECCIÓN 2
+============================================== */
+/* Contenedor de la sección 2 */
+.section2 {
   width: 100%;
   padding: 60px 20px;
   background: var(--color-bg-light);
 }
 
-.section2 h2,
-.section4 h2 {
+.section2 h2 {
   margin: 0 0 40px;
   font-size: 36px;
   font-weight: 800;
@@ -179,8 +204,8 @@ body {
   text-align: center;
 }
 
-.sectiontwo_container,
-.sectionfour_container {
+/* Contenedor interno de la sección 2 (items) */
+.sectiontwo_container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -191,25 +216,27 @@ body {
   flex-wrap: wrap;
 }
 
+/* Target boxes sección 2 */
 .part-two-target-One,
 .part-two-target-two,
 .part-two-target-three {
   flex: 1;
   max-width: 360px;
-  height: 480px; /* Altura fija para TODOS */
+  height: 480px; /* Altura fija para todos */
   background: var(--color-bg-light);
   padding: 0;
-  box-shadow: 6px 12px 25px rgba(0, 0, 0, 0.12);
+  box-shadow: 
+        5px 5px 0 0 rgba(0, 0, 0, 0.486),
+        6px 12px 25px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   gap: 20px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   border-radius: 4px;
 }
-/* hover seccion 2 */
+
+/* Hover sección 2 */
 .part-two-target-One:hover,
 .part-two-target-two:hover,
 .part-two-target-three:hover {
@@ -234,7 +261,7 @@ body {
 .twoImg,
 .threeImg {
   width: 100%;
-  height: 280px; /* Altura fija para las imágenes */
+  height: 280px;
   object-fit: cover;
 }
 
@@ -255,17 +282,21 @@ body {
   margin-left: 10%;
 }
 
-/* Seccion 3 */
+
+/* ==============================================
+   SECCIÓN 3 (TESTIMONIAL)
+============================================== */
 .section3 {
   background: var(--color-text-primary);
   background-image: url(../assets/testimonial-section/orbit.png);
   background-size: cover;
   background-repeat: no-repeat;
-  text-align: -webkit-center;
+  text-align: center;                 /* centrado del texto */
   position: relative;
   padding: 80px 0;
-  margin: 5%;
+  margin: 5% 0;                       /* 5% top/bottom, 0 izquierda/derecha */
 }
+
 .section3 h3 {
   background: none;
   color: var(--color-bg-light);
@@ -284,6 +315,8 @@ body {
   z-index: 3;
   background: url("../assets/testimonial-section/orbit.png");
 }
+
+/* Esquinas decorativas */
 .corner {
   position: absolute;
   width: 100px;
@@ -297,19 +330,23 @@ body {
   top: 30px;
   left: 30px;
 }
+
 .tr {
   top: 30px;
   right: 30px;
 }
+
 .bl {
   bottom: 30px;
   left: 30px;
 }
+
 .br {
   bottom: 30px;
   right: 30px;
 }
 
+/* Contenedor de testimonial */
 .content {
   background: none;
   width: 100%;
@@ -321,27 +358,32 @@ body {
   flex-wrap: nowrap;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;                     /* centra el contenido dentro de section3 */
 }
+
 .testimonial {
-  background: none;;
+  background: none;
   color: var(--color-warning);
   font-size: 18px;
   line-height: 1.6;
   text-align: center;
   max-width: 500px;
 }
+
 .container-name-client {
   background: none;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
+
 .client-name {
   background: none;
   color: var(--color-secondary);
   font-size: 16px;
   font-weight: 600;
 }
+
 .section-profile {
   background: none;
   display: flex;
@@ -349,39 +391,76 @@ body {
   margin-top: 20px;
   align-items: center;
 }
+
 .client-title {
   background: none;
 }
+
 .profile {
   border-radius: 50%;
   width: 60px;
   height: auto;
 }
-/* Seccion4 */
 
+
+/* ==============================================
+   SECCIÓN 4 (ÚLTIMA)
+============================================== */
+.section4 {
+  width: 100%;
+  padding: 60px 20px;
+  background: var(--color-bg-light);
+}
+
+.section4 h2 {
+  margin: 0 0 40px;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+/* Contenedor interno sección 4 */
+.sectionfour_container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Target boxes sección 4 */
 .part-four-target-One,
 .part-four-target-two,
 .part-four-target-three {
+  border: 1px gradient(90deg, var(--color-primary), var(--color-secondary)) border-box;
   flex: 1;
   max-width: 360px;
   height: auto;
   background: var(--color-bg-light);
   padding: 40px;
-  /* box-shadow: 6px 12px 25px rgba(0, 0, 0, 0.12); */
   display: flex;
   flex-direction: column;
   gap: 20px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 4px;
+   box-shadow:
+    0 0 2px 2px  rgba(0, 0, 0, 0.178),
+    5px 5px 0 0 rgb(0, 0, 0),
+    10px 10px 0 0 rgba(0, 0, 0, 0.317);
 }
+
+
 .part-four-target-One:hover,
 .part-four-target-two:hover,
 .part-four-target-three:hover {
   transform: translateY(-10px);
-  box-shadow: 8px 16px 35px rgba(0, 0, 0, 0);
+  box-shadow: 8px 16px 35px rgba(0, 0, 0, 0.18);
 }
+
 .part-four-target-One h3,
 .part-four-target-two h3,
 .part-four-target-three h3 {
@@ -420,4 +499,3 @@ body {
   align-items: center;
   justify-content: center;
 }
-
